@@ -1,0 +1,126 @@
+<?php 
+require_once 'Model\Core\Model_Adapter.php';
+
+$id = $_GET['id'];
+$sql= "SELECT * FROM `customer` WHERE `customer_id`= $id";
+$result = new Model_Adapter();
+$data = $result->fetchRow($sql);
+
+$sql= "SELECT * FROM `customer_address` WHERE `customer_id`= $id";
+$result = new Model_Adapter();
+$data1 = $result->fetchRow($sql);
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Edit Customer</title>
+</head>
+<body>
+<form action="index.php?c=customer&a=update&id=<?php echo $_GET['id']; ?>" method="post">
+<?php require_once 'View\html\header.phtml' ?>
+<div class="content" style="height: 700px;">
+<br>
+	<table class="tc">
+		<tr>
+			<td class="heading">EDIT CUSTOMER</td>
+			<td>
+				<a href="index.php?c=customer&a=grid">Cancel </a>
+			</td>
+			<td>
+				<input type="submit" name="button" value="update">
+			</td>
+		</tr>
+	</table>
+	<br>
+	<table border="1" cellspacing="0"  class="tc">
+		<tr>
+			<th colspan="2"><strong>Customer Information</strong></th>
+		</tr>
+		<tr>
+			<td class="tth">First_name</td>
+			<td>
+				<input type="text" name="customer[first_name]" placeholder="First_name" value="<?php echo $data['first_name']; ?>">
+			</td>
+		</tr>
+		<tr>
+			<td class="tth">Last_name</td>
+			<td>
+				<input type="text" name="customer[last_name]" placeholder="Last_name" value="<?php echo $data['last_name']; ?>">
+			</td>
+		</tr>
+		<tr>
+			<td class="tth">Email</td>
+			<td>
+				<input type="text" name="customer[email]" placeholder="email" value="<?php echo $data['email']; ?>">
+			</td>
+		</tr>
+		<tr>
+			<td class="tth">Mobile</td>
+			<td>
+				<input type="number" name="customer[mobile]" placeholder="mobile no" value="<?php echo $data['mobile']; ?>">
+			</td>
+		</tr>
+		<tr>
+			<td class="tth">Gender</td>
+			<td>
+				<input type="radio" name="customer[gender]" value="Male"<?php if ($data['gender'] == "male") {
+					echo "checked";	} ;?>>male
+				<input type="radio" name="customer[gender]" value="Female"<?php if ($data['gender'] == "female") {
+					echo "checked";	} ;?>>female
+			</td>
+		</tr>
+		<tr>
+			<td class="tth">Status</td>
+			<td>
+				<select name="customer[status]">
+					<option>-Choose an Option-</option>
+					<option value="active"<?php if ($data['status'] == "active") { echo "selected";	} ;?>>Active</option>
+					<option value="inactive"<?php if ($data['status'] == "inactive") { echo "selected";	} ;?>>Inactive</option>
+				</select>
+			</td>
+		</tr>
+	</table>
+	<br>
+	<center>
+	<strong>Address</strong>
+	</center>
+	<table border="1" cellspacing="0"  class="tc">
+		<tr>
+			<td class="tth">Address</td>
+			<td>
+				<textarea name="customer[address]" rows="3" cols="40" placeholder="Address"><?php echo $data1['address']; ?></textarea>
+			</td>
+		</tr>
+		<tr>
+			<td class="tth">City</td>
+			<td>
+				<input type="text" name="customer[city]" placeholder="City" value="<?php echo $data1['city']; ?>">
+			</td>
+		</tr>
+		<tr>
+			<td class="tth">State</td>
+			<td>
+				<input type="text" name="customer[state]" placeholder="State" value="<?php echo $data1['state']; ?>">
+			</td>
+		</tr>
+		<tr>
+			<td class="tth">Country</td>
+			<td>
+				<input type="text" name="customer[country]" placeholder="Country" value="<?php echo $data1['country']; ?>">
+			</td>
+		</tr>
+		<tr>
+			<td class="tth">Zipcode</td>
+			<td>
+				<input type="number" name="customer[zipcode]" placeholder="Zipcode" value="<?php echo $data1['zipcode']; ?>">
+			</td>
+		</tr>
+	</table>
+</div>
+<?php require_once 'View\html\footer.phtml' ?>
+</form>
+</body>
+</html>

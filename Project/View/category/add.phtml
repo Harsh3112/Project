@@ -1,0 +1,82 @@
+<?php 
+require_once 'Model\Core\Model_Adapter.php';
+
+$result = new Model_adapter();
+$sql = "SELECT `parent` FROM `category`";
+$parents = $result->fetchAll($sql);
+
+
+?>
+<!--ADD PRODUCT-->
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Add Category</title>
+</head>
+<body>
+<?php require_once 'View\html\header.phtml' ?>
+
+<div class="content">
+<br>
+<form action="index.php?c=category&a=insert" method="post">
+<table class="tc">
+	<tr>
+		<td class="heading"> ADD CATEGORY</td>
+		<td>
+			<a href="index.php?c=category&a=grid">Cancel </a>
+		</td>
+		<td>
+			<input type="submit" name="button" value="ADD">
+		</td>
+	</tr>
+</table>
+<br>
+<table border="1" cellspacing="0"  class="tc">
+	<tr>
+		<th colspan="2"><strong>Category Information</strong></th>
+	</tr>
+	<tr>
+		<td class="tth">Name :</td>
+		<td>
+			<input type="text" name="category[name]" placeholder="name">
+		</td>
+	</tr>
+	<tr>
+		<td class="tth">Status :</td>
+		<td>
+			<select name="category[status]">
+				<option selected disabled>-Choose an Option-</option>
+				<option value="Active">Active</option>
+				<option value="inactive">Inactive</option>
+			</select>
+		</td>
+	</tr>
+
+	<tr>
+		<td class="tth">Parent :</td>
+		<td>
+			<select name="category[parent]">
+				<option selected disabled>-Choose an Option-</option>
+				<?php foreach($parents as $parent): ?>
+					<option><?php if($parent['parent']){echo $parent['parent'];}; ?></option>
+				<?php endforeach; ?>
+			</select>
+		</td>
+	</tr>
+
+	<tr>
+		<td class="tth">Description :</td>
+		<td>
+			<textarea id="ta" name="category[description]" rows="3" cols="40" placeholder="Description"></textarea>
+		</td>
+	</tr>
+	
+</table>
+</form>
+</div>
+<?php require_once 'View\html\footer.phtml' ?>
+
+</body>
+</html>

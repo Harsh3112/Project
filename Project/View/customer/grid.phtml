@@ -1,0 +1,71 @@
+<?php 
+require_once 'Model\Core\Model_Adapter.php';
+
+$result = new Model_Adapter();
+// $sql = "SELECT * FROM customer";
+$sql = "SELECT * FROM customer c INNER JOIN customer_address ca ON c.customer_id = ca.Customer_id;";
+$datas = $result->fetchAll($sql);
+
+?>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	</style>
+</head>
+<body>
+<form action="index.php?c=customer&a=add" method="post">
+<?php require_once 'View\html\header.phtml' ?>
+
+
+<div class="content">
+	<table class="tc">
+		<tr>
+			<td class="heading"> Customers</td>
+			<td>
+				<input type="submit" name="add" value="Add Customer">
+			</td>
+		</tr>
+	</table>
+	<br>
+	<table border="1" cellspacing="0" class="tc">
+		<tr style="height: 30px; font-size: 18px;">
+			<th>Customer Id</th>
+			<th>First Name</th>
+			<th>Last Name</th>
+			<th>Email</th>
+			<th>Mobile</th>
+			<th>Gender</th>
+			<th>Status</th>
+			<th>Country</th>
+			<th>Created At</th>
+			<th>Updated At</th>
+			<th>EDIT</th>
+			<th>DELETE</th>
+		</tr>
+		<?php foreach ($datas as $customer): ?>
+
+		<tr class="center">
+			<td><?php echo $customer['customer_id']; ?></td>
+			<td><?php echo $customer['first_name']; ?></td>
+			<td><?php echo $customer['last_name']; ?></td>
+			<td><?php echo $customer['email']; ?></td>
+			<td><?php echo $customer['mobile']; ?></td>
+			<td><?php echo $customer['gender']; ?></td>
+			<td><?php echo $customer['status']; ?></td>
+			<td><?php echo $customer['country']; ?></td>
+			<td><?php echo $customer['created_at']; ?></td>
+			<td><?php echo $customer['updated_at']; ?></td>
+			<td><a href="index.php?c=customer&a=edit&id=<?php echo $customer['customer_id']; ?>">Edit</td>
+			<td><a href="index.php?c=customer&a=delete&id=<?php echo $customer['customer_id']; ?>">Delete</td>
+		</tr>
+
+		<?php endforeach; ?>
+	</table>
+</div>
+<?php require_once 'View\html\footer.phtml' ?>
+</form>
+</body>
+</html>

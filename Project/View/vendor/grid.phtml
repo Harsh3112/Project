@@ -1,0 +1,69 @@
+<?php 
+require_once 'Model\Core\Model_Adapter.php';
+
+$result = new Model_Adapter();
+
+$sql = "SELECT * FROM .vendor v INNER JOIN vendor_address va USING (vendor_id)";
+$vendors = $result->fetchAll($sql);
+
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+<form action="index.php?c=vendor&a=add" method="post">
+<?php require_once 'View\html\header.phtml' ?>
+<div class="content">
+	<table class="tc" width="100%">
+		<tr>
+			<td class="heading" style="text-align: left;"> Vendors</td>
+			<td style="text-align: right;">
+				<input type="submit" name="add" value="Add Vendor">
+			</td>
+		</tr>
+	</table>
+<br>
+<table border="1" cellspacing="0" class="tc">
+	<tr style="height: 30px; font-size: 18px;">
+		<th>Vendor ID</th>
+		<th>First Name</th>
+		<th>Last Name</th>
+		<th>Email</th>
+		<th>Mobile</th>
+		<th>Gender</th>
+		<th>Status</th>
+		<th>Company</th>		
+		<th>Country</th>		
+		<th>Created At</th>			
+		<th>Updated At</th>			
+		<th>EDIT</th>
+		<th>DELETE</th>
+	</tr>
+	<?php foreach ($vendors as $vendor): ?>
+	<tr class="center">
+			<td><?php echo $vendor['vendor_id']; ?></td>
+			<td><?php echo $vendor['first_name']; ?></td>
+			<td><?php echo $vendor['last_name']; ?></td>
+			<td><?php echo $vendor['email']; ?></td>
+			<td><?php echo $vendor['mobile']; ?></td>
+			<td><?php echo $vendor['gender']; ?></td>
+			<td><?php echo $vendor['status']; ?></td>
+			<td><?php echo $vendor['company']; ?></td>
+			<td><?php echo $vendor['country']; ?></td>
+			<td><?php echo $vendor['created_at']; ?></td>
+			<td><?php echo $vendor['updated_at']; ?></td>
+			<td><a href="index.php?c=vendor&a=edit&id=<?php echo $vendor['vendor_id']; ?>">Edit</td>
+			<td><a href="index.php?c=vendor&a=delete&id=<?php echo $vendor['vendor_id']; ?>">Delete</td>
+		</tr>
+	<?php endforeach; ?>
+</table>
+</div>
+	<?php require_once 'View\html\footer.phtml' ?>
+</form>
+</body>
+</html>

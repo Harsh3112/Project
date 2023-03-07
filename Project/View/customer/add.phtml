@@ -1,0 +1,112 @@
+<!--ADD PRODUCT-->
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Add Customer</title>
+</head>
+<body>
+<form action="index.php?c=customer&a=insert" method="post">
+<?php require_once 'View\html\header.phtml' ?>
+<div class="content">
+<br>
+	<table class="tc">
+		<tr>
+			<td class="heading"> ADD CUSTOMER</td>
+			<td>
+				<a href="index.php?c=customer&a=grid">Cancel </a>
+			</td>
+			<td>
+				<input type="submit" name="button" value="ADD">
+			</td>
+		</tr>
+	</table>
+	<br>
+	<table border="1" cellspacing="0"  class="tc">
+		<tr>
+			<th colspan="2"><strong>Customer Information</strong></th>
+		</tr>
+		<tr>
+			<td class="tth">First_name</td>
+			<td>
+				<input type="text" name="customer[first_name]" placeholder="First_name">
+			</td>
+		</tr>
+		<tr>
+			<td class="tth">Last_name</td>
+			<td>
+				<input type="text" name="customer[last_name]" placeholder="Last_name">
+			</td>
+		</tr>
+		<tr>
+			<td class="tth">Email</td>
+			<td>
+				<input type="text" name="customer[email]" placeholder="email">
+			</td>
+		</tr>
+		<tr>
+			<td class="tth">Mobile</td>
+			<td>
+				<input type="number" name="customer[mobile]" placeholder="mobile no">
+			</td>
+		</tr>
+		<tr>
+			<td class="tth">Gender</td>
+			<td>
+				<input type="radio" name="customer[gender]" value="male">Male
+				<input type="radio" name="customer[gender]" value="female">Female
+			</td>
+		</tr>
+		<tr>
+			<td class="tth">Status</td>
+			<td>
+				<select name="customer[status]">
+					<option>-Choose an Option-</option>
+					<option value="active">Active</option>
+					<option value="inactive">Inactive</option>
+				</select>
+			</td>
+		</tr>	
+	</table>
+	<br>
+	<center>
+	<strong>Address</strong>
+	</center>
+	<table border="1" cellspacing="0"  class="tc">
+		<tr>
+			<td class="tth">Address</td>
+			<td>
+				<textarea name="customer[address]" rows="3" cols="40" placeholder="Address"></textarea>
+			</td>
+		</tr>
+		<tr>
+			<td class="tth">City</td>
+			<td>
+				<input type="text" name="customer[city]" placeholder="City">
+			</td>
+		</tr>
+		<tr>
+			<td class="tth">State</td>
+			<td>
+				<input type="text" name="customer[state]" placeholder="State">
+			</td>
+		</tr>
+		<tr>
+			<td class="tth">Country</td>
+			<td>
+				<input type="text" name="customer[country]" placeholder="Country">
+			</td>
+		</tr>
+		<tr>
+			<td class="tth">Zipcode</td>
+			<td>
+				<input type="number" name="customer[zipcode]" placeholder="Zipcode">
+			</td>
+		</tr>
+	</table>
+</div>
+<?php require_once 'View\html\footer.phtml' ?>
+</form>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<?php 
+require_once 'Model\Core\Model_Adapter.php';
+require_once 'Model\Core\Request.php';
+
+
+$result = new Model_Adapter();
+$sql = "SELECT * FROM `Salesman`";
+$salesmen = $result->fetchAll($sql);
+
+// $id = $_GET['id'];
+$request = new Request();
+$id = $request->getparams('id');
+
+$sql = "SELECT p.*,sp.salesman_price,sp.product_id as s_pid FROM `product` p LEFT JOIN `salesman_price` sp ON p.product_id=sp.product_id";
+$products = $result->fetchAll($sql);
+?>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Salesman Price</title>
+	<style type="text/css">
+		td{
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+<form action="index.php?c=salesman&a=salesman_price_insert&id=<?php echo $id; ?>" method="post">
+<?php require_once 'View\html\header.phtml'; ?>
+<div class="content">
+	<table border="0" width="90%">
+		<tr>
+			<th width="95%">Salesman
+				<select onchange="vchange(this.value)">
+					<option value="0" disabled>-Select Salesman-</option>
+					<?php foreach ($salesmen as $salesman): ?>
+					<option value="<?php echo $salesman['salesman_id'] ?>"<?php if($salesman['salesman_id'] == $id) {echo "selected";} ?>><?php echo $salesman['first_name']; ?></option>
+				<?php endforeach; ?>
+				</select>
+			</th>
+			<th> <a href="index.php?c=salesman&a=grid">BACK</a> </th>
+			<th> <input type="submit" name="submit" value="UPDATE"></th>
+			<th> <button>DELETE</button> </th>
+		</tr>
+	</table>
+	<br>
+	<table border="1" width="80%" class="tc">
+		<tr>
+			<th>Product id</th>
+			<th>Name</th>
+			<th>SKU</th>
+			<th>Cost</th>
+			<th>Price</th>
+			<th>S price</th>
+			<th>REMOVE</th>
+		</tr>
+		<?php foreach ($products as $product):?>
+		<tr>
+			<td><?php echo $product['product_id'] ?></td>
+			<td><?php echo $product['name'] ?></td>
+			<td><?php echo $product['sku'] ?></td>
+			<td><?php echo $product['cost'] ?></td>
+			<td><?php echo $product['price'] ?></td>
+			<td> <input type="number" name="s_price"> </td>
+			<td> <input type="checkbox" name=""></td>
+		</tr>
+	<?php endforeach; ?>
+	</table>
+	</table>
+</div>
+<?php require_once 'View\html\footer.phtml'; ?>
+
+</form>
+</body>
+
+<script>
+		function vchange(value){
+			
+			window.location.assign('http://localhost/cybercom/Project/index.php?c=salesman&a=salesman_price_grid&id='+value);
+		}
+
+</script>
+</html>

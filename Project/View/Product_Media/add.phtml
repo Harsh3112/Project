@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+<?php require_once 'View\html\header.phtml'; ?>
+
+<form action="index.php?c=product_media&a=insert" method="post" enctype="multipart/form-data">
+	<table cellpadding="20">
+		<tr>
+			<th>Add media</th>
+			<th><a href="index.php?c=product_media&a=media">cancel</a></th>
+			<th>
+				<input type="submit" name="submit" value="submit">
+			</th>
+		</tr>
+	</table>
+	<br>
+	<table border="1">
+		<tr>
+			<td>name</td>
+			<td>
+				<input type="text" name="name">
+			</td>
+		</tr>
+		<tr>
+			<td>status</td>
+			<td>
+				<select name="status">
+					<option value="active">Active</option>
+					<option value="inactive">Inctive</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td>Image</td>
+			<td>
+				<input type="file" id="myimg" name="image">
+			</td>
+		</tr>
+	</table>
+</form>
+<?php require_once 'View\html\footer.phtml'; ?>
+
+</body>
+</html>

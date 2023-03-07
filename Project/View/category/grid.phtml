@@ -1,0 +1,61 @@
+<?php 
+require_once 'Model\Core\Model_Adapter.php';
+
+$result = new Model_adapter();
+$sql = "SELECT * FROM `category`";
+$datas = $result->fetchAll($sql);
+
+?>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+<?php require_once 'View\html\header.phtml' ?>
+<div class="content">
+
+<form action="index.php?c=category&a=add" method="post">
+	<div>
+		<table class="tc">
+			<tr>
+				<td class="heading"> Category</td>
+				<td>
+					<input type="submit" name="add" value="Add Category">
+				</td>
+			</tr>
+		</table>
+	</div>
+	<br>
+	<table border="1" cellspacing="0" class="tc">
+		<tr style="height: 30px; font-size: 18px;">
+			<th>Category Id</th>
+			<th>Name</th>
+			<th>Status</th>
+			<th>Description</th>
+			<th>Created At</th>
+			<th>Updated At</th>
+			<th>EDIT</th>
+			<th>DELETE</th>
+		</tr>
+		<?php foreach ($datas as $category): ?>
+		<tr class="center">
+			<td><?php echo $category['category_id']; ?></td>
+			<td><?php if($category['parent']){echo $category['parent']."=>";} echo $category['name']; ?></td>
+			<td><?php echo $category['status']; ?></td>
+			<td><?php echo $category['description']; ?></td>
+			<td><?php echo $category['created_at']; ?></td>
+			<td><?php echo $category['updated_at']; ?></td>
+			<td><a href="index.php?c=category&a=edit&id=<?php echo $category['category_id']; ?>">Edit</td>
+			<td><a href="index.php?c=category&a=delete&id=<?php echo $category['category_id']; ?>">Delete</td>
+		</tr>
+		<?php endforeach; ?>
+	</table>
+</form>
+</div>
+
+<?php require_once 'View\html\footer.phtml' ?>	
+</body>
+</html>

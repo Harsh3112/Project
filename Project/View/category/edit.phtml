@@ -1,0 +1,68 @@
+<!--ADD PRODUCT-->
+<?php 
+require_once 'Model\Core\Model_Adapter.php';
+
+$id = $_GET['id'];
+$sql= "SELECT * FROM `category` WHERE `category_id`= $id";
+$result = new Model_adapter();
+$data = $result->fetchRow($sql);
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Edit Category</title>
+</head>
+<body>
+<?php require_once 'View\html\header.phtml' ?>
+
+<div class="content">
+<br>
+<form action="index.php?c=category&a=update&id=<?php echo $_GET['id']; ?>" method="post">
+	<?php $id = $_GET['id']; ?>
+<table class="tc">
+	<tr>
+		<td class="heading">EDIT CATEGORY</td>
+		<td>
+			<a href="index.php?c=category&a=grid">Cancel </a>
+		</td>
+		<td>
+			<input type="submit" name="button" value="update">
+		</td>
+	</tr>
+</table>
+<br>
+<table border="1" cellspacing="0"  class="tc">
+	<tr>
+		<th colspan="2"><strong>Category Information</strong></th>
+	</tr>
+	<tr>
+		<td class="tth">NAME</td>
+		<td>
+			<input type="text" name="category[name]" placeholder="name" value="<?php echo $data['name']; ?>">
+		</td>
+	</tr>
+	<tr>
+		<td class="tth">STATUS</td>
+		<td>
+			<select name="category[status]">
+				<option>-Choose an Option-</option>
+				<option value="active"<?php if ($data['status'] == "active") { echo "selected";	} ;?>>Active</option>
+				<option value="inactive"<?php if ($data['status'] == "inactive") { echo "selected";	} ;?>>Inactive</option>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td class="tth">DESCRIPTION</td>
+		<td>
+			<textarea id="ta" name="category[description]" rows="3" cols="40" placeholder="Description"><?php echo $data['description']; ?></textarea>
+		</td>
+	</tr>
+</table>
+</form>
+</div>
+<?php require_once 'View\html\footer.phtml' ?>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<?php
+require_once 'C:\xampp\htdocs\cybercom\Project\Model\Core\Model_Adapter.php';
+ 		
+
+		$sql = "SELECT * FROM `media` WHERE `small`= 1";
+		$adapter = new Model_Adapter();
+		$small = $adapter->fetchRow($sql); 
+
+		$sql = "SELECT * FROM `media` WHERE `base`= 1";
+		$base = $adapter->fetchRow($sql); 
+
+		$sql = "SELECT * FROM `media` WHERE `thumb`= 1";
+		$thumb = $adapter->fetchRow($sql); 
+
+		$sql = "SELECT * FROM `media` WHERE `gallery`= 1";
+		$gallery = $adapter->fetchAll($sql); 
+
+?>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+<?php require_once 'View\html\header.phtml'; ?>
+<div>
+<table>
+	<th>Your selection :</th>
+	<tr>
+		<td>small</td>
+		<td>
+			<?php 
+			if (!$small) {
+				echo("image not found");
+			}
+			?>
+			<img src="./View/Product_Media/images/<?php echo $small['image']; ?>" width="100">
+		</td>
+	</tr>
+	<tr>
+		<td>base</td>
+		<td>
+			<?php 
+			if (!$base) {
+				echo("image not found");
+			}
+			?>
+			<img src="./View/Product_Media/images/<?php echo $base['image']; ?>" width="100">
+		</td>
+	</tr>
+	<tr>
+		<td>thumb</td>
+		<td>
+			<?php 
+			if (!$thumb) {
+				echo("image not found");
+			}
+			?>
+			<img src="./View/Product_Media/images/<?php echo $thumb['image']; ?>" width="100">
+		</td>
+	</tr>
+
+	<tr>
+		<td>gallery</td>
+		<?php 
+			// if (!$gallery) {
+			// 	echo("image not found");
+			// }
+			foreach ($gallery as $glr) {				
+		?>
+		<td>
+			<img src="./View/Product_Media/images/<?php echo $glr['image']; ?>" width="100">
+		</td>
+		<?php 
+		}
+		?>
+	</tr>
+</table>
+</div>
+<?php require_once 'View\html\footer.phtml'; ?>
+
+</body>
+</html>

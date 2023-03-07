@@ -1,0 +1,60 @@
+<!--ADD PRODUCT-->
+<?php 
+require_once 'Model\Core\Model_Adapter.php';
+
+$id = $_GET['id'];
+$sql= "SELECT * FROM `payment_method` WHERE `payment_method_id`= $id";
+$result = new Model_Adapter();
+$data = $result->fetchRow($sql);
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Edit Payment Method</title>
+</head>
+<body>
+<form action="index.php?c=PaymentMethod&a=update&id=<?php echo $_GET['id']; ?>" method="post">
+<?php require_once 'View\html\header.phtml' ?>
+<div class="content">
+<br>
+<table class="tc">
+	<tr>
+		<td class="heading">Edit Payment Method</td>
+		<td>
+			<a href="index.php?c=PaymentMethod&a=grid">Cancel </a>
+		</td>
+		<td>
+			<input type="submit" name="button" value="update">
+		</td>
+	</tr>
+</table>
+<br>
+<table border="1" cellspacing="0"  class="tc">
+	<tr>
+		<th colspan="2"><strong>Payment Method Information</strong></th>
+	</tr>
+	<tr>
+		<td class="tth">Name</td>
+		<td>
+			<input type="text" name="payment_method[name]" placeholder="name" value="<?php echo $data['name']; ?>">
+		</td>
+	</tr>
+	<tr>
+		<td class="tth">Status</td>
+		<td>
+			<select name="payment_method[status]">
+				<option>-Choose an Option-</option>
+				<option value="active"<?php if ($data['status'] == "active") { echo "selected";	} ;?>>Active</option>
+				<option value="inactive"<?php if ($data['status'] == "inactive") { echo "selected";	} ;?>>Inactive</option>
+			</select>
+		</td>
+	</tr>		
+</table>
+</div>
+<?php require_once 'View\html\footer.phtml' ?>
+</form>
+</body>
+</html>

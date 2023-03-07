@@ -1,0 +1,72 @@
+<?php 
+require_once 'C:\xampp\htdocs\cybercom\Project\Model\Core\Model_Adapter.php';
+
+$result = new Model_Adapter();
+$sql = "SELECT * FROM `media`";
+$medias = $result->fetchAll($sql);
+
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+<?php require_once 'View\html\header.phtml'; ?>
+<div >
+	<form action="index.php?c=product_media&a=update" method="POST">
+	<table width="100%">
+		<tr style="font-size: 20px;">
+			<th>...Media...</th>
+			<th ><a href="index.php?c=product_media&a=add">ADD</a></th>
+			<th>
+				<input type="submit" name="submit" value="submit">
+			</th>
+		</tr>
+	</table>
+	<br>
+	<table border="1" width="100%">
+		<tr>
+			<th>media_id</th>
+			<th>image</th>
+			<th>base</th>
+			<th>small</th>
+			<th>thumbnail</th>
+			<th>gallery</th>
+			<th>delete</th>
+		</tr>
+		<?php 
+		foreach ($medias as $media):
+		?>
+		<tr>
+			<td><?php echo $media['media_id']; ?></td>
+			<td>
+				<img src="./View/Product_Media/images/<?php echo $media['image']; ?>" width="100">
+			</td>
+			<td>
+				<input type="radio" name="base" value="<?php echo $media['media_id']; ?>">
+			</td>
+			<td>
+				<input type="radio" name="small" value="<?php echo $media['media_id']; ?>">
+			</td>
+			<td>
+				<input type="radio" name="thumb" value="<?php echo $media['media_id']; ?>">
+			</td>
+			<td>
+				<input type="checkbox" name="gallery[]" value="<?php echo $media['media_id']; ?>">
+			</td>
+			<td><a href="index.php?c=product_media&a=delete&media_id=<?php echo $media['media_id']; ?>">Delete</td>
+		</tr>
+		<?php
+		endforeach;
+		?>
+	</table>
+	</form>
+</div>
+<?php require_once 'View\html\footer.phtml'; ?>
+
+</body>
+</html>
